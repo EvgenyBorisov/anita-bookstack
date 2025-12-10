@@ -1,0 +1,45 @@
+version: "3.7"
+
+services:
+  bookstack:
+    image: lscr.io/linuxserver/bookstack:latest
+    container_name: bookstack
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+      - APP_URL=${BOOKSTACK_APP_URL}
+      - DB_HOST=${BOOKSTACK_DB_HOST}
+      - DB_USER=${BOOKSTACK_DB_USER}
+      - DB_PASS=${BOOKSTACK_DB_PASS}
+      - DB_DATABASE=${BOOKSTACK_DB_NAME}
+    volumes:
+      - ./bookstack/config:/config
+    depends_on:
+      - bookstack_db
+    ports:
+      - "${BOOKSTACK_PORT}:80"
+    networks:
+      - anita-media-bookstack
+    restart: unless-stopped
+
+  bookstack_db:
+    image: lscr.io/linuxserver/mariadb:latest
+    container_name: bookstack_db
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+      - MYSQL_ROOT_PASSWORD=${MARIADB_ROOT_PASSWORD}
+      - MYSQL_DATABASE=${MARIADB_DATABASE}
+      - MYSQL_USER=${MARIADB_USER}
+      - MYSQL_PASSWORD=${MARIADB_PASSWORD}
+    volumes:
+      - ./bookstack/db:/config
+    networks:
+      - anita-media-bookstack
+    restart: unless-stopped
+
+networks:
+  anita-media-bookstack:
+    name: anita-media-bookstack
