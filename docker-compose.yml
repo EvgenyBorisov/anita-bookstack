@@ -13,6 +13,7 @@ services:
       - DB_USER=${BOOKSTACK_DB_USER}
       - DB_PASS=${BOOKSTACK_DB_PASS}
       - DB_DATABASE=${BOOKSTACK_DB_NAME}
+      - APP_KEY=${APP_KEY}
     volumes:
       - ./bookstack/config:/config
     depends_on:
