@@ -10,8 +10,8 @@ services:
       - TZ=${TZ}
       - APP_URL=${APP_URL}
       - DB_HOST=${MARIADB_DB_HOST}
-      - DB_USER=${MARIADB_USER}
-      - DB_PASS=${MARIADB_PASSWORD}
+      - DB_USERNAME=${MARIADB_USER}
+      - DB_PASSWORD=${MARIADB_PASSWORD}
       - DB_DATABASE=${MARIADB_DATABASE}
       - APP_KEY=${APP_KEY}
     volumes:
